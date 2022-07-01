@@ -99,7 +99,7 @@ class Heap {
 <br>
 
 ### 04. 제네릭
-* [exam02](./java_example/part01/ch04/exam02)
+* [exam02](../java_example/part01/ch04/exam02)
 
 <br>
 
