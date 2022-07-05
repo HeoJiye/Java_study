@@ -1,11 +1,16 @@
 # Java_study
 
-### Part 1. 쉽게 배우는 자료구조 with 자바 (22/07/01 ~ )
+### Part 1. 자바 자료구조
 
-* [chapter04 : 자바 기초](./part1/chapter04.md)
-* [chapter02 : 재귀와 귀납적 사고](./part1/chapter02.md)
-* [chapter01/03 : 자료구조 소개/알고리즘 성능](./part1/chapter01,03.md)
-* [chapter06-1 : 배열을 이용한 스택](./part1/chapter06.md)
+#### 📘 쉽게 배우는 자료구조 with 자바 (22/07/01 ~ )
+* [chapter04 : 자바 기초](./book/part1/chapter04.md)
+* [chapter02 : 재귀와 귀납적 사고](./book/part1/chapter02.md)
+* [chapter01/03 : 자료구조 소개/알고리즘 성능](./book/part1/chapter01,03.md)
+* [chapter06-1 : 배열을 이용한 스택](./book/part1/chapter06.md)
+
+#### 💻 백준
+* [09. 재귀](./baekjon/09)
+* [19. 스택](./baekjon/09)
 
 <br>
 
