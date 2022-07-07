@@ -2,6 +2,8 @@
 
 ### Part 1. 자바 자료구조
 
+##### 🏃‍♀️Learningmate: [@Soojeoong](https://github.com/Soojeoong)
+
 #### 📘 쉽게 배우는 자료구조 with 자바 (22/07/01 ~ )
 * [chapter04 : 자바 기초](./book/part1/chapter04.md)
 * [chapter02 : 재귀와 귀납적 사고](./book/part1/chapter02.md)
