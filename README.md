@@ -8,9 +8,7 @@
 * [chapter04 : 자바 기초](./book/part1/chapter04.md)
 * [chapter05 : 리스트](./book/part1/chapter05.md)
 
-#### 💻 백준
-* [09. 재귀](./baekjoon/09)
-* [19. 스택](./baekjoon/09)
+#### 💻 [백준](https://github.com/HeoJiye/Beakjoon)
 
 <br>
 
