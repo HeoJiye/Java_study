@@ -131,6 +131,26 @@ public class ArrayList<E> implements ListInterface<E> {
 
 ## 3️⃣  연결 리스트
 
+#### 노드
+```java
+public class Node<E> {
+	public E item;
+	public Node<E> next;
+
+	public Node(E newItem) {
+		item = newItem;
+		next = null;
+	}
+
+	public Node(E newItem, Node<E> nextNode) {
+		item = newItem;
+		next = nextNode;
+	}
+}
+```
+
+
+#### 연결 리스트
 ```java
 public class LinkedList<E> implements ListInterface<E> {
 	private Node<E> head;
@@ -262,4 +282,250 @@ public class LinkedList<E> implements ListInterface<E> {
 	- 크기 순으로 정렬된 경우에는 
 		+ 배열 O(log n) -> 이진 탐색 알고리즘
 		+ 연결 O(n)
-	- 
+
+<br>
+
+## 5️⃣  연결 리스트의 확장
+
+#### 원형 연결 리스트
+
+``` java
+public class CircularLinkedList<E> implements ListInterface<E> {
+	private Node<E> tail;
+	private int numItems;
+
+	public CircularLinkedList() {
+		numItems = 0;
+		tail = new Node(-1);
+		tail.next = tail;
+	}
+
+	public void add(int index, E x) {
+		if(index >= 0 && index <= numItems) {
+			Node<E> prevNode = getNode(index - 1);
+			Node<E> newNode = new Node(x, prevNode.next);
+			prevNode.next = newNode;
+			if(index == numItems)
+				tail = newNode;
+			numItems++;
+		}
+	}
+
+	public void append(E x) {
+		Node<E> prevNode = tail;
+		Node<E> newNode = new Node(x, tail.next);
+		prevNode.next = newNode;
+		tail = newNode;
+		numItems++;
+	}
+
+	public E remove(int index) {
+		if(index >= 0 && index <= numItems-1) {
+			Node<E> prevNode = getNode(index - 1);
+			E rItem = prevNode.next.item;
+			prevNode.next = prevNode.next.next;
+			if(index == numItems)
+				tail = prevNode;
+			numItems--;
+			return rItem;
+		} else return null;
+	}
+
+	public boolean removeItem(E x) {
+		Node<E> currNode = tail.next;
+		Node<E> prevNode;
+		for(int i = 0; i < numItems; i++) {
+			prevNode = currNode;
+			currNode = currNode.next;
+			if(((Comparable)(currNode.item)).compareTo(x) == 0) {
+				prevNode.next = currNode.next;
+				numItems--;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public E get(int index) {
+		if(index >= 0 && index <= numItems-1) {
+			return getNode(index).item;
+		} else return null;
+	}
+
+	public void set(int index, E x) {
+		if(index >= 0 && index <= numItems-1) {
+			return getNode(index).item;
+		} else return null;
+	}
+
+	public Node<E> getNode(int index) {
+		if(index >= -1 && index <= numItems) {
+			Node<E> currNode = tail.next;
+			for(int i = 0; i <= index; i++) {
+				currNode = currNode.next;
+			}
+			return currNode;
+		} else { return null; }
+	}
+
+	public final int NOT_FOUND = -12345;
+	public int indexOf(E x) {
+		Node<E> currNode = tail.next;
+		for(int i = 0; i <= numItems-1; i++) {
+			currNode = currNode.next;
+			if(((Comparable)(currNode.item)).compareTo(x) == 0) return i;
+		}
+		return NOT_FOUND;
+	}
+
+	public int len() {
+		return numItems;
+	}
+
+	public boolean isEmpty() {
+		return numItems == 0;
+	}
+
+	public void clear() {
+		numItems = 0;
+		tail = new Node(-1);
+		tail.next = tail;
+	}
+}
+```
+
+
+#### 양방향 연결 리스트
+
+##### BidirectionalNode.java
+``` java
+public class BidirectionalNode<E> {
+	public BidirectionalNode<E> prev;
+	public E item;
+	public BidirectionalNode<E> next;
+
+	public BidirectionalNode() {
+		prev = next = null;
+		item = null;
+	}
+
+	public BidirectionalNode(E newItem) {
+		prev = next - null;
+		item = newItem;
+	}
+
+	public BidirectionalNode(BidirectionalNode<E> prevNode, E newItem, BidirectionalNode<E> nextNode) {
+		prev = prevNode;
+		next = nextNode;
+		item = newItem;
+	}
+}
+```
+
+##### CircularDoublyLinkedList.java
+``` java
+public class CircularDoublyLinkedList<E> implements ListInterface<E> {
+	private BidirectionalNode<E> head;
+	private int numItems;
+
+	public CircularDoublyLinkedList() {
+		numItems = 0;
+		head = new BidirectionalNode<>(null);
+		head.next = head.prev = head;
+	}
+
+	public void add(int index, E x) {
+		if(index >= 0 && index <= numItems) {
+			BidirectionalNode<E> prevNode = getNode(index - 1);
+			BidirectionalNode<E> newNode = new BidirectionalNode<>(prevNode, x, prevNode.next);
+			newNode.next.prev = newNode;
+			prevNode.next = newNode;
+			numItems++;
+		} else { /*에러 처리*/ }
+	}
+
+	public void append(E x) {
+		BidirectionalNode<E> prevNode = head.prev;
+		BidirectionalNode<E> newNode = new BidirectionalNode<>(prevNode, x, head);
+		prevNode.next = newNode;
+		head.prev = newNode;
+		numItems++;
+	} 
+
+	public E remove(int index) {
+		if(index >= 0 && index <= numItems - 1) {
+			BidirectionalNode<E> currNode = getNode(index);
+			currNode.prev.next = currNode.next;
+			currNode.next.prev = currNode.prev;
+			numItems--;
+			return currNode.item;
+		} else
+			return null;
+	}
+
+	public boolean removeItem(E x) {
+		BidirectionalNode<E> currNode = head;
+		for(int i = 0; i < numItems - 1; i++) {
+			currNode = currNode.next;
+			if(((Comparable)(currNode.item)).compareTo(x) == 0) {
+				currNode.prev.next = currNode.next;
+				currNode.next.prev = currNode.prev;
+				numItem--;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public E get(int index) {
+		if(index >= 0 && index <= numItems - 1) {
+			return getNode(index).item;
+		} else
+			return null;
+	}
+
+	public void set(int index, E x) {
+		if(index >= 0 && index <= numItems - 1) {
+			getNode(index).item = x;
+		} else { /*에러 처리*/ }
+	}
+
+	public BidirectionalNode<E> getNode(int index) {
+		if(index >= -1 && index <= numItems - 1) {
+			BidirectionalNode<E> currNode = head;
+			if(index < numItems/2)
+				for(int i = 0; i <= index; i++)
+					currNode = currNode.next;
+			else
+				for(int i = numItems - 1; i >= index; i--)
+					currNode = currNode.prev;
+			return currNode;
+		} else
+			return null;
+	}
+
+	public final int NOT_FOUND = -12345;
+	public int indexOf(E x) {
+		BidirectionalNode<E> currNode = head;
+		for(int i = 0; i <= numItems - 1; i++) {
+			currNode = currNode.next;
+			if(((Comparable)(currNode.item)).compareTo(x) == 0)
+				return i;
+		}
+		return NOT_FOUND;
+	}
+
+	public int len() {
+		return numItems;
+	}
+
+	public boolean isEmpty() {
+		return numItems == 0;
+	}
+
+	public void clear() {
+		numItems = 0;
+		head.next = head.prev = head;
+	}
+}
+```
