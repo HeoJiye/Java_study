@@ -66,6 +66,8 @@
 	}
 ```
 
+<br>
+
 ## 3️⃣ 연결 리스트를 이용한 스택
 * [import list.Node;](chapter05.md#노드)
 ```java
@@ -107,6 +109,8 @@ public class LinkedStack<E> implements StackInterface<E> {
 }
 ```
 
+<br>
+
 ## 4️⃣ 다른 클래스를 재사용한 스택
 * [import list.LinkedList;](chapter05.md#연결-리스트)
 ```java
@@ -135,6 +139,8 @@ public class InheritedStack<E> extends LinkedStack<E> implements StackInterface<
 	}
 }
 ```
+
+<br>
 
 ## 5️⃣ 스택 응용
 #### 1. 문자열 뒤집기
